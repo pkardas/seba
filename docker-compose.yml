@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  seba:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/src
+    env_file:
+      - .env
