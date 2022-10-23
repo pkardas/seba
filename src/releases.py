@@ -21,6 +21,10 @@ def get_config() -> Config:
 def check_saved_searches():
     for saved_search in get_config().saved_searches:
         page = get_page(saved_search)
+
+        if not page:
+            return
+
         search_results = get_search_results(page)
 
         new_items = [

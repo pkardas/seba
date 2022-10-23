@@ -1,5 +1,8 @@
 import logging
-from typing import List
+from typing import (
+    List,
+    Optional,
+)
 
 import requests
 from bs4 import (
@@ -12,11 +15,12 @@ from src.models import NikeSearchResult
 logger = logging.getLogger("nike")
 
 
-def get_page(url: str) -> str:
+def get_page(url: str) -> Optional[str]:
     try:
         return requests.get(url).text
     except Exception as e:
         logger.error(e)
+        return None
 
 
 def get_search_results(page: str) -> List[NikeSearchResult]:
