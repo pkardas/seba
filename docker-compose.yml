@@ -13,3 +13,7 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ./src/worker.py
+    volumes:
+      - ./:/src
+    env_file:
+      - .env
