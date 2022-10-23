@@ -1,15 +1,19 @@
 import json
 from functools import cache
 from pathlib import Path
+from typing import Set
 
 from src.gateways.nike import (
     get_page,
     get_search_results,
 )
 from src.gateways.slack import notify_about_new_release
-from src.models import Config
+from src.models import (
+    Config,
+    NikeSearchResult,
+)
 
-saved_items = set()
+saved_items: Set[NikeSearchResult] = set()
 
 
 @cache
@@ -18,7 +22,7 @@ def get_config() -> Config:
         return Config(**json.loads(file.read()))
 
 
-def check_saved_searches():
+def check_saved_searches() -> None:
     for saved_search in get_config().saved_searches:
         page = get_page(saved_search)
 
