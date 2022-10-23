@@ -1,0 +1,24 @@
+name: "pytest"
+
+on: [ push ]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: "Python"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Create env file'
+        run: cp .env.example .env
+
+      - name: Build the stack
+        run: docker-compose build seba
+
+      - name: pytest
+        run: make test-pytest
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose down
