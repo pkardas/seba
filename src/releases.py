@@ -9,7 +9,7 @@ from src.gateways.nike import (
 from src.gateways.slack import notify_about_new_release
 from src.models import Config
 
-SAVED_ITEMS = set()
+saved_items = set()
 
 
 @cache
@@ -27,12 +27,6 @@ def check_saved_searches():
 
         search_results = get_search_results(page)
 
-        new_items = [
-            item
-            for item in search_results
-            if item not in SAVED_ITEMS
-        ]
-
-        for new_item in new_items:
+        for new_item in set(search_results) - saved_items:
             notify_about_new_release(new_item)
-            SAVED_ITEMS.add(new_item)
+            saved_items.add(new_item)

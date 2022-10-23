@@ -6,8 +6,9 @@ from threading import Event
 
 from src.releases import check_saved_searches
 
-event = Event()
 logger = logging.getLogger("worker")
+
+event = Event()
 
 
 def main():
