@@ -6,3 +6,6 @@ test-mypy:
 
 test-pytest:
 	docker-compose run --rm seba pytest .
+
+ec2-run:
+	sudo docker-compose up --detach worker
