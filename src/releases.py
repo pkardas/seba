@@ -31,3 +31,4 @@ def check_saved_searches():
 
         for new_item in new_items:
             notify_about_new_release(new_item)
+            SAVED_ITEMS.add(new_item)
