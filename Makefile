@@ -11,7 +11,7 @@ ec2-list:
 	sudo docker ps
 
 ec2-build:
-	sudo docker-compose build seba
+	sudo docker-compose build worker
 
 ec2-run:
 	sudo docker-compose up --detach worker
