@@ -7,5 +7,12 @@ test-mypy:
 test-pytest:
 	docker-compose run --rm seba pytest .
 
+ec2-list:
+	sudo docker ps
+
+ec2-build:
+	sudo docker-compose build seba
+
 ec2-run:
 	sudo docker-compose up --detach worker
+
