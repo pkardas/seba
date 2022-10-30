@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s]: %
 
 rollbar.init(
     access_token=os.getenv("ROLLBAR_TOKEN"),
-    environment="prod",
+    environment=os.getenv("ENV"),
     code_version="1.0"
 )
 
