@@ -1,4 +1,3 @@
-import logging
 import os
 
 from slack_sdk import WebClient
@@ -7,12 +6,13 @@ from slack_sdk.models.blocks import (
     SectionBlock,
 )
 
+from src.logger import get_logger
 from src.models import NikeSearchResult
 
-CLIENT = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+CLIENT = WebClient(token=os.getenv("SLACK_BOT_TOKEN"))
 CHANNEL = "#sebix"
 
-logger = logging.getLogger("slack")
+logger = get_logger("slack")
 
 
 def notify_about_new_release(search_result: NikeSearchResult) -> None:

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import atexit
-import logging
 from threading import Event
 
+from src.logger import get_logger
 from src.releases import check_saved_searches
 
-logger = logging.getLogger("worker")
+logger = get_logger("worker")
 
 event = Event()
 

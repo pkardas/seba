@@ -1,4 +1,3 @@
-import logging
 from typing import (
     List,
     Optional,
@@ -10,9 +9,10 @@ from bs4 import (
     Tag,
 )
 
+from src.logger import get_logger
 from src.models import NikeSearchResult
 
-logger = logging.getLogger("nike")
+logger = get_logger("nike")
 
 
 def get_page(url: str) -> Optional[str]:

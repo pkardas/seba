@@ -1,7 +1,11 @@
 import json
+from collections import defaultdict
 from functools import cache
 from pathlib import Path
-from typing import Set
+from typing import (
+    Set,
+    Dict,
+)
 
 from src.gateways.nike import (
     get_page,
@@ -13,7 +17,7 @@ from src.models import (
     NikeSearchResult,
 )
 
-saved_items: Set[NikeSearchResult] = set()
+saved_items: Dict[str, Set[NikeSearchResult]] = defaultdict(set)
 
 
 @cache
@@ -23,14 +27,20 @@ def get_config() -> Config:
 
 
 def check_saved_searches() -> None:
-    for saved_search in get_config().saved_searches:
-        page = get_page(saved_search)
+    for url in get_config().saved_searches:
+        check_saved_search(url)
 
-        if not page:
-            return
 
-        search_results = get_search_results(page)
+def check_saved_search(url: str) -> None:
+    if not (page := get_page(url)):
+        return
 
-        for new_item in set(search_results) - saved_items:
+    search_results = get_search_results(page)
+    new_products = set(search_results) - saved_items[url]
+
+    if not saved_items[url]:
+        saved_items[url] = new_products
+    else:
+        for new_item in new_products:
             notify_about_new_release(new_item)
-            saved_items.add(new_item)
+            saved_items[url].add(new_item)

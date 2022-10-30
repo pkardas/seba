@@ -4,7 +4,7 @@ from tests.conftest import load_example
 
 
 def test_get_search_results():
-    page = load_example("nike-search.html")
+    page = load_example("nike-tn-search.html")
 
     assert get_search_results(page) == [
         NikeSearchResult(name="Nike Air Max Plus", price="619,97 zł", url="https://www.nike.com/pl/t/buty-meskie-air-max-plus-Hddz5c/DX2663-001"),
