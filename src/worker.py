@@ -15,7 +15,10 @@ def main():
     logger.info("Worker starting")
 
     while True:
-        check_saved_searches()
+        try:
+            check_saved_searches()
+        except Exception as e:
+            logger.error(f"Worker failed: {e}")
 
         if event.wait(timeout=30 * 60):
             break
