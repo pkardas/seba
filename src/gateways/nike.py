@@ -27,11 +27,21 @@ def get_search_results(page: str) -> List[NikeSearchResult]:
     soup = BeautifulSoup(page, "html.parser")
 
     return [
-        NikeSearchResult(
-            name=product.find("a", class_="product-card__img-link-overlay")["aria-label"],
-            price=product.find("div", class_="product-price").string.replace(' ', '').replace("\xa0", ' ').strip(),
-            url=product.find("a", class_="product-card__img-link-overlay", href=True)["href"]
-        )
+        _get_product(product)
         for product in soup.find("div", class_="product-grid__items")
-        if isinstance(product, Tag)
+        if isinstance(product, Tag) and _get_product(product)
     ]
+
+
+def _get_product(product: Tag) -> Optional[NikeSearchResult]:
+    product_card_a = product.find("a", class_="product-card__img-link-overlay", href=True)
+    product_price_div = product.find("div", class_="product-price")
+
+    if not product_card_a or not product_price_div:
+        return None
+
+    return NikeSearchResult(
+        name=product_card_a["aria-label"],
+        price=product_price_div.string.replace(' ', '').replace("\xa0", ' ').strip(),
+        url=product_card_a["href"],
+    )

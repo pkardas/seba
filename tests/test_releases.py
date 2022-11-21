@@ -16,5 +16,5 @@ def test_check_saved_searches(notify_about_new_release):
     saved_items[NIKE_TN_URL].pop()
     check_saved_searches()
 
-    assert len(saved_items[NIKE_TN_URL]) == 20
+    assert len(saved_items[NIKE_TN_URL]) == 27
     assert notify_about_new_release.call_count == 1
